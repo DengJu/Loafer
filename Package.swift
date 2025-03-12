@@ -4,7 +4,10 @@ import PackageDescription
 let package = Package(
     name: "Loafer",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v13),
+        .macOS(.v10_15),
+        .tvOS(.v13),
+        .watchOS(.v6)
     ],
     products: [
         .library(
@@ -47,9 +50,16 @@ let package = Package(
                 "GSMessages",
                 "KeychainAccess",
                 "FSPagerView"
-            ]),
+            ],
+            path: "Sources/Loafer",
+            swiftSettings: [
+                .define("DEBUG", .when(configuration: .debug)),
+                .define("RELEASE", .when(configuration: .release))
+            ]
+        ),
         .testTarget(
             name: "LoaferTests",
             dependencies: ["Loafer"]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 ) 
